@@ -209,10 +209,10 @@ a{
     z-index:9;
     width:1000px;
     height:700px;
-    overflow: auto;
     background:#000000;
     color:#000000;
     opacity:0.90
+    text-aling:center;
 }
 
 #outputTAFrame{

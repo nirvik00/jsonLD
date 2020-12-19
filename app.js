@@ -3,26 +3,22 @@ const fs = require('fs');
 const app = express();
 const path = require('path');
 const jsonld = require('jsonld');
-const cors = require('cors');
 
-app.use(cors());
+app.use(express.static(path.join(__dirname, 'public')));
 
-const port = process.env.PORT || 5000;
-
-// const data = require('./public/data/wall_door.json');
+const data = require('./public/data/wall_door.json');
 // const data = require('./public/data/testX.json');
-const data = require('./public/data/testY.json');
+// const data = require('./public/data/testY.json');
 
 // const frame = require('./public/data/wall_door_framing.json');
 // const frame = require('./public/data/wall_door_framing2.json');
-// const frame = require('./public/data/wall_door_framing4.json');
+const frame = require('./public/data/wall_door_framing4.json');
 // const frame = require('./public/data/frame5Geom.json');
-const frame = require('./public/data/frame6OnlyGeom.json');
+// const frame = require('./public/data/frame6OnlyGeom.json');
 
 // const data = require('./public/data/devonData.json');
 // const frame = require('./public/data/devonDataFrame.json');/
 
-app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.json());
 
 app.get('/', (req, res) => {
@@ -69,6 +65,8 @@ app.post('/genSol', async (req, res) => {
 		res.send(e);
 	}
 });
+
+const port = process.env.PORT || 5000;
 
 app.listen(port, () => {
 	console.log('server started on port ' + port);
