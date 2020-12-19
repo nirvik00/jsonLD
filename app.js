@@ -7,7 +7,7 @@ const cors = require('cors');
 
 app.use(cors());
 
-const port = 5000;
+const port = process.env.PORT || 5000;
 
 // const data = require('./public/data/wall_door.json');
 // const data = require('./public/data/testX.json');
