@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>ifcJsonLD-Frame</title>
+
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jsonld/3.2.0/jsonld.min.js"></script>
+
+		<script src="./js/libs/jquery-3.5.1.min.js"></script>
+		<script src="./js/src/dbfunc.js"></script>
+		<script src="./js/src/funcs.js"></script>
+		<link rel="stylesheet" href="./css/style.css" />
+	</head>
+	<body>
+		<h1>JSON-LD Framing Demo</h1>
+		<hr />
+		<div class="container">
+			<div class="sampleDiv" style="display: block">
+				<h1>Use Sample Files</h1>
+				<table>
+					<tr>
+						<td>
+							<span>Use Sample Data</span>
+						</td>
+						<td>
+							<input
+								type="submit"
+								class="button"
+								id="sampleDataBtn"
+								value="Load Data"
+							/>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<span>Use SAmple Frame</span>
+						</td>
+						<td>
+							<input
+								type="submit"
+								class="button"
+								id="sampleFrameBtn"
+								value="Load Frame"
+							/>
+						</td>
+					</tr>
+				</table>
+			</div>
+			<div class="uploadDiv" style="display: block">
+				<h1>Upload a file</h1>
+				<table>
+					<tr>
+						<td>
+							<span>Load JSON LD Data</span>
+						</td>
+						<td>
+							<input
+								type="file"
+								id="inputData"
+								name="file"
+								class="button"
+								style="color: white"
+								value="select file"
+							/>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<span>Load Frame Data</span>
+						</td>
+						<td>
+							<input
+								type="file"
+								id="inputFrame"
+								name="file"
+								class="button"
+								style="color: rgb(255, 255, 255)"
+								value="select file"
+							/>
+						</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+		<h1>Process</h1>
+		<hr />
+		<div id="interactiveDiv" style="display: block">
+			<table>
+				<tr>
+					<td>
+						<input
+							type="submit"
+							class="mainbutton"
+							value="Clear Both Panels"
+							onclick="clearPanels();"
+						/>
+					</td>
+					<td>
+						<input
+							type="submit"
+							class="mainbutton"
+							value="Generate / Frame Data"
+							id="sendDB"
+							onclick="genFrame();"
+						/>
+					</td>
+				</tr>
+			</table>
+			<table id="interactiveTbl">
+				<tr>
+					<td>
+						<textarea id="interactiveTAData" class="interactiveTA"></textarea>
+					</td>
+					<td>
+						<textarea id="interactiveTAFrame" class="interactiveTA"></textarea>
+					</td>
+				</tr>
+			</table>
+		</div>
+
+		<div id="floatingOutputPanel" style="display: none">
+			<h1><span style="color: white"> Output Framed Data </span></h1>
+			<button class="mainbutton" onclick="hideOutput();">
+				Close Output Panel
+			</button>
+			<textarea id="outputTAFrame" class="interactiveTA"></textarea>
+		</div>
+
+		<script>
+			document
+				.getElementById('inputData')
+				.addEventListener('change', function () {
+					var fr = new FileReader();
+					fr.onload = function () {
+						var inpStr = fr.result;
+						var jsonObj = JSON.parse(inpStr);
+						setDataDiv(jsonObj);
+					};
+					fr.readAsText(this.files[0]);
+				});
+		</script>
+		<script>
+			document
+				.getElementById('inputFrame')
+				.addEventListener('change', function () {
+					var fr = new FileReader();
+					fr.onload = function () {
+						var inpStr = fr.result;
+						var jsonObj = JSON.parse(inpStr);
+						setFrameDiv(jsonObj);
+					};
+					fr.readAsText(this.files[0]);
+				});
+		</script>
+	</body>
+</html>
